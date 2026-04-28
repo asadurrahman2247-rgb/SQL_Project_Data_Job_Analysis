@@ -1,0 +1,29 @@
+/* 
+Practice Problem - 8
+Find jon postings from the first quarter that have salary
+grater than $70K
+- Combine job postings tables from the first quarter of 2023(Jan_Mar)
+- Get job postings with an average yrarly salary > $70000
+*/
+
+SELECT 
+    job_title_short,
+    job_location,
+    job_via,
+    job_posted_date::DATE,
+    salary_year_avg
+FROM (
+    SELECT *
+    FROM january_jobs
+    UNION ALL
+    SELECT *
+    FROM february_jobs
+    UNION ALL
+    SELECT *
+    FROM march_jobs
+) AS quarter1_job_postings
+ WHERE
+    salary_year_avg > 70000 AND
+    job_title_short = 'Data Analyst'
+ORDER BY
+    salary_year_avg DESC
